@@ -190,7 +190,7 @@ async def async_setup(hass, config):
                             if output_str[0:len(needle)] == needle:
                                 _LOGGER.debug(output_str)
                                 # command_line = [ngrok_exec, 'tcp', ha_local_ip_address + ':' + str(ha_local_port)]
-                                command_line = [ngrok_exec , 'tcp' , ha_local_ip_address + ':' + str(ha_local_port)]
+                                command_line = [ngrok_exec , 'http' , ha_local_ip_address + ':' + str(ha_local_port)]
                                 # create thread and starts it
                                 hass.data[DOMAIN]['thread'] = threading.Thread(target=thread_run_ngrok, args=[command_line])
                                 hass.data[DOMAIN]['thread'].start()
@@ -247,9 +247,9 @@ async def async_setup(hass, config):
 
         if public_url is not None:
             if public_url[0:5] == 'https':
-                public_url = ha_local_protocol + public_url[4:]
+                public_url = ha_local_protocol + public_url[5:]
             else:
-                public_url = ha_local_protocol + public_url[3:]
+                public_url = ha_local_protocol + public_url[4:]
 
         if public_url != hass.data[DOMAIN]['public_url']:
             _LOGGER.debug('public url changed in ' + str(public_url))
